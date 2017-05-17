@@ -8,6 +8,9 @@ public class MainController {
 
   @GetMapping("/")
   public String mainPage() {
+    System.out.println(System.getenv("CHAT_APP_LOGLEVEL"));
     return "index";
   }
+
+
 }
