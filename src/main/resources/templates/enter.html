@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Enter into nagyza's Peer to peer app</title>
+</head>
+<body>
+  <h1>Enter</h1>
+  <form method="post" action="/enter">
+    <label>Choose your name:
+      <input type="text" th:name="name"/>
+      <input type="submit" value="Ok"/>
+    </label>
+  </form>
+</body>
+</html>
