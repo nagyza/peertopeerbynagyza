@@ -1,5 +1,7 @@
 package com.greenfox.peertopeerbynagyza.controller;
 
+import com.greenfox.peertopeerbynagyza.service.LogLine;
+import com.greenfox.peertopeerbynagyza.service.ShowLog;
 import com.greenfox.peertopeerbynagyza.service.User;
 import com.greenfox.peertopeerbynagyza.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,17 @@ public class MainController {
   @Autowired
   UsersRepository usersRepository;
 
+  @Autowired
+  ShowLog showLog;
+
   @GetMapping("/")
   public String mainPage(Model model) {
-    System.out.println(System.getenv("CHAT_APP_LOGLEVEL"));
+    showLog.printLogLine(new LogLine("INFO", "/", "GET", ""));
     if (usersRepository.count() > 0) {
       model.addAttribute("user", usersRepository.findOne((long) 1));
       return "index";
     } else {
+
       return "enter";
     }
   }
@@ -31,8 +37,10 @@ public class MainController {
   public String setUser(Model model,@RequestParam("name") String param) {
     if (param.length() == 0) {
       model.addAttribute("message", "The username field is empty");
+      showLog.printLogLine(new LogLine("INFO", "/enter", "POST", "name="));
       return "enter";
     } else {
+      showLog.printLogLine(new LogLine("INFO", "/enter", "POST", "name=" + param));
       usersRepository.save(new User(param));
       return "redirect:/";
     }
@@ -54,5 +62,6 @@ public class MainController {
     User user = usersRepository.findOne((long) 1);
     user.setName(param);
     usersRepository.save(user);
+    showLog.printLogLine(new LogLine("INFO", "/updateuser", "PUT", "name=" + param));
   }
 }
