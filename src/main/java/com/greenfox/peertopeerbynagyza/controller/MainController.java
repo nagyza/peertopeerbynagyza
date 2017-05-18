@@ -2,8 +2,6 @@ package com.greenfox.peertopeerbynagyza.controller;
 
 import com.greenfox.peertopeerbynagyza.model.User;
 import com.greenfox.peertopeerbynagyza.repository.UsersRepository;
-import com.greenfox.peertopeerbynagyza.service.EnterSite;
-import com.sun.javafx.collections.UnmodifiableListSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
