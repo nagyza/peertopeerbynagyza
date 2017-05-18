@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
 
   @Autowired
-  EnterSite enterSite;
-
-  @Autowired
   UsersRepository usersRepository;
 
   @GetMapping("/")
