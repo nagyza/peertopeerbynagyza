@@ -28,7 +28,7 @@ public class MainController {
   }
 
   @PostMapping("/enter")
-  public String setUser(Model model, @RequestParam("name") String param) {
+  public String setUser(@RequestParam("name") String param) {
     usersRepository.save(new User(param));
     return "redirect:/";
   }
