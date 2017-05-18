@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -37,4 +38,16 @@ public class MainController {
     return "redirect:/";
   }
 
+  @GetMapping("/update_user")
+  public String changeUserAct(@RequestParam("name") String param) {
+    changeUser(param);
+    return "redirect:/";
+  }
+
+  @PutMapping("/updateuser")
+  public void changeUser(String param) {
+    User user = usersRepository.findOne((long) 1);
+    user.setName(param);
+    usersRepository.save(user);
+  }
 }
