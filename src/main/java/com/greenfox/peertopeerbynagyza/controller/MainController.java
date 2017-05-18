@@ -1,6 +1,6 @@
 package com.greenfox.peertopeerbynagyza.controller;
 
-import com.greenfox.peertopeerbynagyza.model.User;
+import com.greenfox.peertopeerbynagyza.service.User;
 import com.greenfox.peertopeerbynagyza.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.greenfox.peertopeerbynagyza.model;
+package com.greenfox.peertopeerbynagyza.service;
 
 import javax.persistence.*;
 
