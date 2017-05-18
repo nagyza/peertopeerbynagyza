@@ -28,15 +28,25 @@ public class MainController {
   }
 
   @PostMapping("/enter")
-  public String setUser(@RequestParam("name") String param) {
-    usersRepository.save(new User(param));
-    return "redirect:/";
+  public String setUser(Model model,@RequestParam("name") String param) {
+    if (param.length() == 0) {
+      model.addAttribute("message", "The username field is empty");
+      return "enter";
+    } else {
+      usersRepository.save(new User(param));
+      return "redirect:/";
+    }
   }
 
   @GetMapping("/update_user")
-  public String changeUserAct(@RequestParam("name") String param) {
-    changeUser(param);
-    return "redirect:/";
+  public String changeUserAct(Model model, @RequestParam("name") String param) {
+    if (param.length() == 0) {
+      model.addAttribute("message", "The username field is empty");
+      return "redirect:/";
+    } else {
+      changeUser(param);
+      return "redirect:/";
+    }
   }
 
   @PutMapping("/updateuser")
