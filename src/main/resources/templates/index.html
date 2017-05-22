@@ -17,6 +17,7 @@
   </form>
   <form method="post" action="/send_message">
     <textarea type="text" th:name="text" cols="30" rows="3"/>
+    <input th:type="hidden" th:value="${user.name}" th:name="user"></input>
     <input type="submit" value="Send"/>
   </form>
   <ul>

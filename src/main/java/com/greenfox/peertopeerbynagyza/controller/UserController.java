@@ -1,6 +1,8 @@
 package com.greenfox.peertopeerbynagyza.controller;
 
+import com.greenfox.peertopeerbynagyza.repository.MessageRepository;
 import com.greenfox.peertopeerbynagyza.service.LogLine;
+import com.greenfox.peertopeerbynagyza.service.Message;
 import com.greenfox.peertopeerbynagyza.service.ShowLog;
 import com.greenfox.peertopeerbynagyza.service.User;
 import com.greenfox.peertopeerbynagyza.repository.UsersRepository;
@@ -21,11 +23,15 @@ public class UserController {
   @Autowired
   ShowLog showLog;
 
+  @Autowired
+  MessageRepository messageRepository;
+
   @GetMapping("/")
   public String mainPage(Model model) {
     showLog.printLogLine(new LogLine("INFO", "/", "GET", ""));
     if (usersRepository.count() > 0) {
       model.addAttribute("user", usersRepository.findOne((long) 1));
+      model.addAttribute("messagesText", messageRepository.findAllByOrderByDateDesc());
       return "index";
     } else {
       return "enter";
@@ -49,7 +55,7 @@ public class UserController {
   public String changeUserAct(Model model, @RequestParam("name") String param) {
     if (param.length() == 0) {
       model.addAttribute("message", "The username field is empty");
-      return "redirect:/";
+      return "index";
     } else {
       changeUser(param);
       return "redirect:/";
@@ -62,5 +68,11 @@ public class UserController {
     user.setName(param);
     usersRepository.save(user);
     showLog.printLogLine(new LogLine("INFO", "/updateuser", "PUT", "name=" + param));
+  }
+
+  @PostMapping("/send_message")
+  public String sendMessage(@RequestParam String text, @RequestParam String user) {
+    messageRepository.save(new Message(user, text));
+    return "redirect:/";
   }
 }
