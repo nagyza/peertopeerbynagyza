@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class MainController {
+public class UserController {
 
   @Autowired
   UsersRepository usersRepository;
@@ -28,7 +28,6 @@ public class MainController {
       model.addAttribute("user", usersRepository.findOne((long) 1));
       return "index";
     } else {
-
       return "enter";
     }
   }
