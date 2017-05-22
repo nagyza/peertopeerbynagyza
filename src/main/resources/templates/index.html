@@ -22,6 +22,7 @@
   </form>
   <ul>
     <li th:each="messageText : ${messagesText}">
+      <span th:text="${messageText.user}"></span>
       <span th:text="${messageText.text}"></span>
     </li>
   </ul>
