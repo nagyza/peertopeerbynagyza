@@ -7,22 +7,22 @@
 </head>
 <body>
   <h1>Peer to Peer Chat program</h1>
-  <h2 th:text="'Hi ' + ${user.name} + '!'">Hi User!</h2>
+  <h2 th:text="'Hi ' + ${user.username} + '!'">Hi User!</h2>
   <h2 th:text="${message}"></h2>
   <form method="get" action="/update_user">
     <label>Your username:
-      <input type="text" th:name="name" th:value="${user.name}"/>
+      <input type="text" th:name="name" th:value="${user.username}"/>
       <input type="submit" value="update"/>
     </label>
   </form>
   <form method="post" action="/send_message">
     <textarea type="text" th:name="text" cols="30" rows="3"/>
-    <input th:type="hidden" th:value="${user.name}" th:name="user"></input>
+    <input th:type="hidden" th:value="${user.username}" th:name="user"></input>
     <input type="submit" value="Send"/>
   </form>
   <ul>
     <li th:each="messageText : ${messagesText}">
-      <span th:text="${messageText.user}"></span>
+      <span th:text="${messageText.username}"></span>
       <span th:text="${messageText.text}"></span>
     </li>
   </ul>

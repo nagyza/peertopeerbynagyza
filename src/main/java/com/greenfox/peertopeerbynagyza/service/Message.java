@@ -13,7 +13,7 @@ public class Message {
 
   @Id
   private long id;
-  private String user;
+  private String username;
   private String text;
   private Long timestamp;
 
@@ -22,7 +22,7 @@ public class Message {
 
   public Message(String user, String text) {
     this.id = (long) (Math.random() * 8999999) + 1000000;
-    this.user = user;
+    this.username = user;
     this.text = text;
     this.timestamp = System.currentTimeMillis();
   }

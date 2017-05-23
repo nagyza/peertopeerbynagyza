@@ -56,7 +56,7 @@ public class UserController {
       return "index";
     } else {
       User user = usersRepository.findOne((long) 1);
-      user.setName(param);
+      user.setUserame(param);
       usersRepository.save(user);
       return "redirect:/";
     }
