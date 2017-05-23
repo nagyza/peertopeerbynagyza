@@ -12,7 +12,6 @@ import javax.persistence.*;
 public class Message {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String user;
   private String text;

@@ -29,7 +29,7 @@ public class UserController {
     showLog.printLogLine(new LogLine("INFO", "/", "GET", ""));
     if (usersRepository.count() > 0) {
       model.addAttribute("user", usersRepository.findOne((long) 1));
-      model.addAttribute("messagesText", messageRepository.findAllByOrderByDateDesc());
+      model.addAttribute("messagesText", messageRepository.findAllByOrderByTimestampDesc());
       return "index";
     } else {
       return "enter";
