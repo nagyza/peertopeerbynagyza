@@ -1,18 +1,13 @@
 package com.greenfox.peertopeerbynagyza.controller;
 
 import com.greenfox.peertopeerbynagyza.repository.MessageRepository;
-import com.greenfox.peertopeerbynagyza.service.LogLine;
-import com.greenfox.peertopeerbynagyza.service.Message;
-import com.greenfox.peertopeerbynagyza.service.ShowLog;
-import com.greenfox.peertopeerbynagyza.service.User;
+import com.greenfox.peertopeerbynagyza.service.*;
 import com.greenfox.peertopeerbynagyza.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -25,6 +20,9 @@ public class UserController {
 
   @Autowired
   MessageRepository messageRepository;
+
+  @Autowired
+  ErrorMessage errorMessage;
 
   @GetMapping("/")
   public String mainPage(Model model) {
@@ -57,22 +55,23 @@ public class UserController {
       model.addAttribute("message", "The username field is empty");
       return "index";
     } else {
-      changeUser(param);
+      User user = usersRepository.findOne((long) 1);
+      user.setName(param);
+      usersRepository.save(user);
       return "redirect:/";
     }
-  }
-
-  @PutMapping("/updateuser")
-  public void changeUser(String param) {
-    User user = usersRepository.findOne((long) 1);
-    user.setName(param);
-    usersRepository.save(user);
-    showLog.printLogLine(new LogLine("INFO", "/updateuser", "PUT", "name=" + param));
   }
 
   @PostMapping("/send_message")
   public String sendMessage(@RequestParam String text, @RequestParam String user) {
     messageRepository.save(new Message(user, text));
     return "redirect:/";
+  }
+
+  @ExceptionHandler(Exception.class)
+  public ErrorMessage errorMessageSender(MissingServletRequestParameterException e) {
+    String paramName = e.getParameterName();
+    errorMessage.setError("Hello! Something wrong with the " + paramName + " parameter.");
+    return errorMessage;
   }
 }
