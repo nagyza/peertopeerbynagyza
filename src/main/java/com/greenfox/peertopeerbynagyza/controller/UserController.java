@@ -62,7 +62,22 @@ public class UserController {
 
   @PostMapping("/send_message")
   public String sendMessage(@RequestParam String text, @RequestParam String user) {
-    messageRepository.save(new Message(user, text));
+    Message message = new Message(user, text);
+    boolean idIsNotUnique;
+    do {
+      idIsNotUnique = false;
+      for (Message actual : messageRepository.findAll()) {
+        if (actual.getId() == message.getId()) {
+          idIsNotUnique = true;
+        }
+      }
+      if (idIsNotUnique) {
+        message.setId();
+        System.out.println(message.getId());
+        System.out.println("HAHAHAHA");
+      }
+    } while (idIsNotUnique);
+    messageRepository.save(message);
     return "redirect:/";
   }
 

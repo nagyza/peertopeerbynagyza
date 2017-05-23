@@ -6,8 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "messages")
 public class Message {
 
@@ -21,9 +19,41 @@ public class Message {
   }
 
   public Message(String user, String text) {
-    this.id = (long) (Math.random() * 8999999) + 1000000;
+    setId();
     this.username = user;
     this.text = text;
     this.timestamp = System.currentTimeMillis();
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId() {
+    this.id = (long) (Math.random() * 8999999) + 1000000;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
+  public Long getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(Long timestamp) {
+    this.timestamp = timestamp;
   }
 }
