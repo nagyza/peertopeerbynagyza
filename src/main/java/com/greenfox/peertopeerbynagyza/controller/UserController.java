@@ -28,6 +28,9 @@ public class UserController {
   public String mainPage(Model model) {
     showLog.printLogLine(new LogLine("INFO", "/", "GET", ""));
     if (usersRepository.count() > 0) {
+      if (usersRepository.findOne((long) 1).getUsername().isEmpty()) {
+        model.addAttribute("message", "The username field is empty");
+      }
       model.addAttribute("user", usersRepository.findOne((long) 1));
       model.addAttribute("messagesText", messageRepository.findAllByOrderByTimestampDesc());
       return "index";
@@ -38,7 +41,7 @@ public class UserController {
 
   @PostMapping("/enter")
   public String setUser(Model model,@RequestParam("name") String param) {
-    if (param.length() == 0) {
+    if (param.isEmpty()) {
       model.addAttribute("message", "The username field is empty");
       showLog.printLogLine(new LogLine("INFO", "/enter", "POST", "name="));
       return "enter";
@@ -50,16 +53,11 @@ public class UserController {
   }
 
   @GetMapping("/update_user")
-  public String changeUserAct(Model model, @RequestParam("name") String param) {
-    if (param.length() == 0) {
-      model.addAttribute("message", "The username field is empty");
-      return "index";
-    } else {
-      User user = usersRepository.findOne((long) 1);
-      user.setUserame(param);
-      usersRepository.save(user);
-      return "redirect:/";
-    }
+  public String changeUserAct(Model model, @ModelAttribute("name") String param) {
+    User user = usersRepository.findOne((long) 1);
+    user.setUserame(param);
+    usersRepository.save(user);
+    return "redirect:/";
   }
 
   @PostMapping("/send_message")
