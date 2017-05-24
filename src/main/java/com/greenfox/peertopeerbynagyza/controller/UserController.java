@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class UserController {
+
+  private static final String CHAT_APP_UNIQUE_ID = "https://p2p-by-nagyza.herokuapp.com";
 
   @Autowired
   UsersRepository usersRepository;
@@ -23,6 +26,9 @@ public class UserController {
 
   @Autowired
   ErrorMessage errorMessage;
+
+  @Autowired
+  MessageWrapper messageWrapper;
 
   @GetMapping("/")
   public String mainPage(Model model) {
@@ -78,6 +84,10 @@ public class UserController {
       }
     } while (idIsNotUnique);
     messageRepository.save(message);
+    messageWrapper.setMessage(message);
+    messageWrapper.setClient(new P2pClient(usersRepository.findOne((long) 1).getUsername()));
+    RestTemplate restTemplate = new RestTemplate();
+    restTemplate.postForObject(CHAT_APP_UNIQUE_ID + "/api/message/receive", messageWrapper, ResponseMessage.class);
     return "redirect:/";
   }
 
