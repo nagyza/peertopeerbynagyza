@@ -26,7 +26,7 @@ public class P2pRestController {
   public ResponseMessage receiveMessage(@RequestBody MessageWrapper messageWrapper) {
     ResponseMessage responseMessage = new  ResponseMessage("ok");
     messageRepository.save(messageWrapper.getMessage());
-    if (messageWrapper.getClient().getId() != usersRepository.findOne((long) 1).getUsername()) {
+    if (!messageWrapper.getClient().getId().equals(usersRepository.findOne((long) 1).getUsername())) {
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(CHAT_APP_UNIQUE_ID + "/api/message/receive", messageWrapper, ResponseMessage.class);
     }
