@@ -24,7 +24,8 @@
     <li th:each="messageText : ${messagesText}">
       <span th:text="${messageText.username}"></span>
       <div></div>
-      <span th:text="${messageText.text}"></span>
+      <span th:text="${messageText.text} + ' - '"></span>
+      <span th:text="${#dates.format(new java.util.Date(messageText.timestamp))}"> </span>
     </li>
   </ul>
 </body>
