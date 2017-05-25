@@ -13,82 +13,32 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class UserController {
 
-  private static final String CHAT_APP_UNIQUE_ID = System.getenv("CHAT_APP_UNIQUE_ID");
-
-  @Autowired
-  UsersRepository usersRepository;
-
-  @Autowired
-  ShowLog showLog;
-
-  @Autowired
-  MessageRepository messageRepository;
+  private static final String CHAT_APP_UNIQUE_ID = "https://p2p-by-nagyza.herokuapp.com/";
 
   @Autowired
   ErrorMessage errorMessage;
 
   @Autowired
-  MessageWrapper messageWrapper;
+  MainService mainService;
 
   @GetMapping("/")
   public String mainPage(Model model) {
-    showLog.printLogLine(new LogLine("INFO", "/", "GET", ""));
-    if (usersRepository.count() > 0) {
-      if (usersRepository.findOne((long) 1).getUsername().isEmpty()) {
-        model.addAttribute("message", "The username field is empty");
-      }
-      model.addAttribute("user", usersRepository.findOne((long) 1));
-      model.addAttribute("messagesText", messageRepository.findAllByOrderByTimestampDesc());
-      return "index";
-    } else {
-      return "enter";
-    }
+    return mainService.indexSiteCreator(model);
   }
 
   @PostMapping("/enter")
   public String setUser(Model model,@RequestParam("name") String param) {
-    if (param.isEmpty()) {
-      model.addAttribute("message", "The username field is empty");
-      showLog.printLogLine(new LogLine("INFO", "/enter", "POST", "name="));
-      return "enter";
-    } else {
-      showLog.printLogLine(new LogLine("INFO", "/enter", "POST", "name=" + param));
-      usersRepository.save(new User(param));
-      return "redirect:/";
-    }
+    return mainService.enterSiteCreator(model, param);
   }
 
   @GetMapping("/update_user")
-  public String changeUserAct(Model model, @ModelAttribute("name") String param) {
-    User user = usersRepository.findOne((long) 1);
-    user.setUserame(param);
-    usersRepository.save(user);
-    return "redirect:/";
+  public String updateUser(Model model, @ModelAttribute("name") String param) {
+    return mainService.updateUser(model, param);
   }
 
   @PostMapping("/send_message")
   public String sendMessage(@RequestParam String text, @RequestParam String user) {
-    Message message = new Message(user, text);
-    boolean idIsNotUnique;
-    do {
-      idIsNotUnique = false;
-      for (Message actual : messageRepository.findAll()) {
-        if (actual.getId() == message.getId()) {
-          idIsNotUnique = true;
-        }
-      }
-      if (idIsNotUnique) {
-        message.setId();
-        System.out.println(message.getId());
-        System.out.println("HAHAHAHA");
-      }
-    } while (idIsNotUnique);
-    messageRepository.save(message);
-    messageWrapper.setMessage(message);
-    messageWrapper.setClient(new P2pClient(usersRepository.findOne((long) 1).getUsername()));
-    RestTemplate restTemplate = new RestTemplate();
-    restTemplate.postForObject(CHAT_APP_UNIQUE_ID + "/api/message/receive", messageWrapper, ResponseMessage.class);
-    return "redirect:/";
+    return mainService.sendMessage(text, user);
   }
 
   @ExceptionHandler(Exception.class)
