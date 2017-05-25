@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class P2pRestController {
 
-  private static final String CHAT_APP_UNIQUE_ID = "https://p2p-by-nagyza.herokuapp.com";
+  private static final String CHAT_APP_UNIQUE_ID = System.getenv("CHAT_APP_UNIQUE_ID");
 
   @Autowired
   MessageRepository messageRepository;

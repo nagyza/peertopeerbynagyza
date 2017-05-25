@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class UserController {
 
-  private static final String CHAT_APP_UNIQUE_ID = "https://p2p-by-nagyza.herokuapp.com";
+  private static final String CHAT_APP_UNIQUE_ID = System.getenv("CHAT_APP_UNIQUE_ID");
 
   @Autowired
   UsersRepository usersRepository;
