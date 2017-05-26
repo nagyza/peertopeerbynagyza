@@ -26,4 +26,9 @@ public class ResponseErrorMessage extends ResponseMessage {
   public void setMessage(String message) {
     this.message = message;
   }
+
+  @Override
+  public String toString() {
+    return "ResponseMessage: " + "status: " + getStatus() + " message: " + message;
+  }
 }
