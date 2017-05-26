@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class MainService {
 
@@ -82,17 +84,5 @@ public class MainService {
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.postForObject(CHAT_APP_UNIQUE_ID + "/api/message/receive", messageWrapper, ResponseMessage.class);
     return "redirect:/";
-  }
-
-  public User getMainUser() {
-    return usersRepository.findOne((long) 1);
-  }
-
-  public long getNumberOfUsers() {
-    return usersRepository.count();
-  }
-
-  public Iterable<Message> getAllMessageOrderedByDateDesc() {
-    return messageRepository.findAllByOrderByTimestampDesc();
   }
 }
