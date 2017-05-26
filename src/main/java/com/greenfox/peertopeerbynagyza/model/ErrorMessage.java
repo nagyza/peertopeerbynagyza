@@ -1,8 +1,8 @@
-package com.greenfox.peertopeerbynagyza.service;
+package com.greenfox.peertopeerbynagyza.model;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ErrorMessage {
   private String error;
 

@@ -1,6 +1,6 @@
 package com.greenfox.peertopeerbynagyza.repository;
 
-import com.greenfox.peertopeerbynagyza.service.Message;
+import com.greenfox.peertopeerbynagyza.model.Message;
 import org.springframework.data.repository.CrudRepository;
 
 public interface MessageRepository extends CrudRepository<Message, Long> {

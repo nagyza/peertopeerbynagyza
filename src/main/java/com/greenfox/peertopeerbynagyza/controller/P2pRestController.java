@@ -1,5 +1,8 @@
 package com.greenfox.peertopeerbynagyza.controller;
 
+import com.greenfox.peertopeerbynagyza.model.MessageWrapper;
+import com.greenfox.peertopeerbynagyza.model.ResponseErrorMessage;
+import com.greenfox.peertopeerbynagyza.model.ResponseMessage;
 import com.greenfox.peertopeerbynagyza.repository.MessageRepository;
 import com.greenfox.peertopeerbynagyza.repository.UsersRepository;
 import com.greenfox.peertopeerbynagyza.service.*;

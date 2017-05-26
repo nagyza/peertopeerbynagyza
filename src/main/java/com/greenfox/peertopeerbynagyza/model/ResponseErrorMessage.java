@@ -1,4 +1,4 @@
-package com.greenfox.peertopeerbynagyza.service;
+package com.greenfox.peertopeerbynagyza.model;
 
 import org.springframework.stereotype.Component;
 

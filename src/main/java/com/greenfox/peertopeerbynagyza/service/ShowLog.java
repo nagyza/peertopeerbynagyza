@@ -1,5 +1,6 @@
 package com.greenfox.peertopeerbynagyza.service;
 
+import com.greenfox.peertopeerbynagyza.model.LogLine;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;

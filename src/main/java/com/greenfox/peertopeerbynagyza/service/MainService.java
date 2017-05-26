@@ -1,13 +1,12 @@
 package com.greenfox.peertopeerbynagyza.service;
 
+import com.greenfox.peertopeerbynagyza.model.*;
 import com.greenfox.peertopeerbynagyza.repository.MessageRepository;
 import com.greenfox.peertopeerbynagyza.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 @Service
 public class MainService {
