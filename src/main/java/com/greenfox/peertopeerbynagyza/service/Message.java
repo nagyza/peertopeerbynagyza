@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Message {
 
   @Id
-  private long id;
+  private Long id;
   private String username;
   private String text;
   private Long timestamp;
@@ -22,7 +22,7 @@ public class Message {
     this.timestamp = System.currentTimeMillis();
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
