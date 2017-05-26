@@ -1,7 +1,5 @@
 package com.greenfox.peertopeerbynagyza.model;
 
-import com.greenfox.peertopeerbynagyza.model.Message;
-import com.greenfox.peertopeerbynagyza.model.P2pClient;
 import org.springframework.stereotype.Component;
 
 @Component
