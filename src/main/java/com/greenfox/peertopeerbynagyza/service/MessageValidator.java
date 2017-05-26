@@ -6,11 +6,7 @@ import org.springframework.stereotype.Service;
 public class MessageValidator {
 
   public boolean isMessageWrapperValid(MessageWrapper messageWrapper) {
-    if (isMessageValid(messageWrapper.getMessage()) && isClientValid(messageWrapper.getClient())) {
-      return true;
-    } else {
-      return false;
-    }
+    return isMessageValid(messageWrapper.getMessage()) && isClientValid(messageWrapper.getClient());
   }
 
   public boolean isMessageValid(Message message) {
