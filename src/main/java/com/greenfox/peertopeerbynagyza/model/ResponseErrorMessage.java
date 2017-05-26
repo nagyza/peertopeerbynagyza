@@ -29,6 +29,10 @@ public class ResponseErrorMessage extends ResponseMessage {
 
   @Override
   public String toString() {
-    return "ResponseMessage: " + "status: " + getStatus() + " message: " + message;
+    if (message == null) {
+      return "status: " + getStatus();
+    } else {
+      return "status: " + getStatus() + " message: " + message;
+    }
   }
 }
